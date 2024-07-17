@@ -1,36 +1,29 @@
-from typing import Dict, List
+from typing import Dict
 
 
-def split_booty(*purses: Dict[str, int]):
-    total_gold_ingots = 0
-    for purse in purses:
-        total_gold_ingots += purse.get("gold_ingots", 0)
-    gold_ingots_per_purse = total_gold_ingots // 3
-    variance = total_gold_ingots % 3
-    purse1 = {"gold_ingots": gold_ingots_per_purse}
-    purse2 = {"gold_ingots": gold_ingots_per_purse}
-    purse3 = {"gold_ingots": gold_ingots_per_purse}
-    if variance > 0:
-        purse1["gold_ingots"] += 1
-    if variance > 1:
-        purse2["gold_ingots"] += 1
+def add_ingot(parse: Dict[str, int]) -> Dict[str, int]:
+    new_parse = parse.copy()
+    if "gold ignot" not in new_parse:
+        new_parse["gold ignot"] = 1
+    else:
+        new_parse["gold ignot"] += 1
+    return new_parse
 
-    return purse1, purse2, purse3
+
+def get_ingot(parse: Dict[str, int]) -> Dict[str, int]:
+    new_parse = parse.copy()
+    if "gold ignot" in new_parse and new_parse["gold ignot"] > 0:
+        new_parse["gold ignot"] -= 1
+    return new_parse
+
+
+def empty(parse) -> Dict[str, int]:
+    return {}
 
 
 def main():
-    purses: List[Dict[str, int]] = [
-        {"gold_ingots": 2},
-        {"gold_ingots": 2},
-        {"gold_ingots": 4},
-        {"gold_ingots": 11},
-        {"gold_ingots": 9},
-        {"gold_ingots": 3},
-        {"gold_ingots": 2},
-        {"apples": 10},
-    ]
-    v1, v2, v3 = split_booty(purses[5], purses[6], purses[7])
-    print(v1, v2, v3)
+    purse = {"Hello": 2}
+    print(add_ingot(get_ingot(add_ingot(empty(purse)))))
 
 
 if __name__ == "__main__":
